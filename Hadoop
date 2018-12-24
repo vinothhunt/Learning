@@ -1,0 +1,154 @@
+What is hive?is it a database or a data warehouse tool?
+
+What is Hive metastore? - column names types, partition informations, bucketing information and serde etc about he actrual table
+			- stored in derby database / my sql
+
+What is the role of Hive metastore? - derby database wont allow to use same machine to connect the hive.
+
+What are managed and external tables? - Data and Meta data under control of hive
+				-external - only metadata under control of hive
+
+What are complex data types in hive?
+				- MAP , STRUCT<address,  Array(datatype), UNIONTY:E
+
+How does partitioning help in faster execution of queries?
+				- Partitionedcolum appears in where clause only small table of scan not full table to scan
+
+Partitioning 
+	- Static  & Dynamic
+	set hive.exec.dynamic.partionion.mode=nonstrict
+	Partition(location)
+
+How does bucketing help in faster exectuion of queries?
+	SMBM - Sort merge bucket map , sorted on same column map phase itself
+	set hive.enforce.sortmergebucketmapjoin =false;
+	set hive.auto.convert.sortmerge.join=true;
+	set hive.optimize.bucketmapjoin=true;
+	set hive.optimize.bucketmapjoin.sortedmerge =true;
+
+How to enable bucketing in hive?
+
+	set hive.enforce.bucketing=true;
+
+Where is table data stored in Apache Hive by default?
+
+	hdfs: //namenode_server/user/hive/warehouse
+
+What are the diff file format?
+	TEXT, Sequence, RC, Parquet, Avro, ORC -Optimized Row Columnar 
+
+REGEXSerDE
+	matching pattern 
+	Row FORMAT SERDE
+	org.apache.hadoop.hive.contrib.serde2.regexserde
+	'input.regex'='(.*)/(.*)@(.*)'
+
+How to access hbase from hive?
+
+	create external table
+	employee_hbase(eid String,fname string,salary int) Stored by 'org.apache.hadoop.hive.hbase.Hbasestoragehandler  with Serdeproperties
+	("hbase.columns.mapping"=":key,personaldetails:fname,pernaldetails:Lname,personaldetails:salary")
+
+Explain the concatenation function in Hive with an example 
+	CONCAT ('Intellipaat','-','is','-','a','-','eLearning',’-’,’provider’);
+	CONCAT_WS ('-',’Intellipaat’,’is’,’a’,’eLearning’,‘provider’);
+	Output: Intellipaat-is-a-eLearning-provider.
+
+How to change the column data type in Hive? Explain RLIKE in Hive.
+	ALTER TABLE table_name CHANGE column_namecolumn_namenew_datatype;
+	Alter Table Student RENAME to Student_New
+
+What are the components used in Hive query processor?
+	The components of a Hive query processor include
+
+		Logical Plan of Generation.
+		Physical Plan of Generation.
+		Execution Engine.
+		Operators.
+		UDF’s and UDAF’s.
+		Optimizer.
+		Parser.
+		Semantic Analyzer.
+		Type Checking
+
+How Hive can improve performance with ORC format tables?
+	We can store the hive data in highly efficient manner in the Optimized Row Columnar file format. It can simplify many Hive file format limitations. 
+	We can improve the performance by using ORC files while reading, writing and processing the data.
+
+		Set hive.compute.query.using.stats-true;
+		Set hive.stats.dbclass-fs;
+	CREATE TABLE orc_table (
+	idint,
+	name string)
+	ROW FORMAT DELIMITED FIELDS TERMINATED BY ‘\:’ LINES TERMINATED BY ‘\n’ STORES AS ORC;
+		
+
+How to skip header rows from a table in Hive?
+		CREATE EXTERNAL TABLE employee (
+		name STRING,
+		job STRING,
+		dob STRING,
+		id INT,
+		salary INT)
+		ROW FORMAT DELIMITED FIELDS TERMINATED BY ‘ ‘ STORED AS TEXTFILE
+		LOCATION ‘/user/data’
+		TBLPROPERTIES("skip.header.line.count"="2”);
+
+What is the maximum size of string data type supported by hive? Mention the Hive support binary formats.
+The maximum size of string data type supported by hive is 2 GB.
+Hive supports the text file format by default and it supports the binary format Sequence files, ORC files, Avro Data files, Parquet files.
+Sequence files: Splittable, compressible and row oriented are the general binary format.
+ORC files: Full form of ORC is optimized row columnar format files. It is a Record columnar file and column oriented storage file. It divides the table in row split. In each split stores that value of the first row in the first column and followed sub subsequently.
+AVRO data files: It is same as a sequence file splittable, compressible and row oriented, but except the support of schema evolution and multilingual binding support.
+
+What is the precedence order of HIVE configuration?
+	We are using a precedence hierarchy for setting the properties
+
+		SET Command in HIVE
+		The command line –hiveconf option
+		Hive-site.XML
+		Hive-default.xml
+		Hadoop-site.xml
+		Hadoop-default.xml
+
+Whenever we run hive query, new metastore_db is created. Why?
+Local metastore is created when we run Hive in embedded mode. And before creating it checks whether the metastore exists or not and this metastore property is 
+defined in the configuration file hive-site.xml. Property is“javax.jdo.option.ConnectionURL” with default value “jdbc:derby:;databaseName=metastore_db;create=true”
+.So to change the behavior of the location to an absolute path, so that from that location meta-store will be used.
+
+
+Can you list few commonly used Hive services?
+
+	Command Line Interface (cli)
+	Hive Web Interface (hwi)
+	HiveServer (hiveserver)
+	Printing the contents of an RC file using the tool rcfilecat.
+	Jar
+	Metastore
+
+What is the use of Hcatalog?
+
+Hcatalog can be used to share data structures with external systems. Hcatalog provides access to hive metastore to users of other tools on Hadoop so that they can read and write data to hive’s data warehouse.
+
+How will you read and write HDFS files in Hive?
+
+	i) TextInputFormat- This class is used to read data in plain text file format.
+
+	ii) HiveIgnoreKeyTextOutputFormat- This class is used to write data in plain text file format.
+
+
+	iii) SequenceFileInputFormat- This class is used to read data in hadoop SequenceFile format.
+
+	iv) SequenceFileOutputFormat- This class is used to write data in hadoop SequenceFile format.
+
+
+Differentiate between describe and describe extended.
+
+	Describe database/schema- This query displays the name of the database, the root location on the file system and comments if any.
+	Describe extended database/schema- Gives the details of the database or schema in a detailed manner.
+
+
+Block size change:
+
+hadoop fs -Ddfs.blocksize=33554432 -copyFromLocal /local/text.txt /sample_hdfs
+hadoop fs -stat %0 /sample_hdfs/test.txt
