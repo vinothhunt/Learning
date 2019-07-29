@@ -12,7 +12,21 @@ Fetaure Engineering
 
 https://towardsdatascience.com/feature-engineering-for-machine-learning-3a5e293a5114
 
+Sin cos conversion in Feature Eng: (Month and Hr converted)
+
+http://blog.davidkaleko.com/feature-engineering-cyclical-features.html
+
+
+Feature Selector:
+
+https://github.com/WillKoehrsen/feature-selector
+
+https://github.com/WillKoehrsen/feature-selector/blob/master/Feature%20Selector%20Development.ipynb
+
+
+
 Feature Selection:
+https://github.com/lmarkely/enron_fraud
 
 
 https://scikit-learn.org/stable/modules/classes.html#module-sklearn.feature_selection
@@ -34,11 +48,18 @@ Bias and variance:
 
 https://www.datasciencecentral.com/profiles/blogs/data-science-simplified-key-concepts-of-statistical-learning
 
+https://towardsdatascience.com/understanding-the-bias-variance-tradeoff-165e6942b229
+
 Outliers:
 
 https://towardsdatascience.com/5-ways-to-detect-outliers-that-every-data-scientist-should-know-python-code-70a54335a623
 
 https://towardsdatascience.com/ways-to-detect-and-remove-the-outliers-404d16608dba
+
+
+imbalanced feature:
+
+http://www.chioka.in/class-imbalance-problem/
 
 
 github Random cut forest Amazon:
@@ -70,6 +91,17 @@ https://towardsdatascience.com/how-to-use-machine-learning-for-anomaly-detection
 
 https://towardsdatascience.com/wondering-how-to-build-an-anomaly-detection-model-87d28e50309
 
-https://towardsdatascience.com/how-to-use-machine-learning-for-anomaly-detection-and-condition-monitoring-6742f82900d7
+
+Handson site to work:
+
+https://www.kaggle.com/willkoehrsen/start-here-a-gentle-introduction
+
+Deep learning Taxi fare:
+
+https://github.com/WillKoehrsen/taxi-fare/blob/master/Fare%20Prediction.ipynb
+
+Cyclical encoding feature:  Time and Date
+
+https://www.kaggle.com/avanwyk/encoding-cyclical-features-for-deep-learning
 
 
